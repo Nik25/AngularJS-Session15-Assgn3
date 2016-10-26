@@ -1,0 +1,35 @@
+<!--Write a directive to demonstrate 1-way data binding of
+parent scope property in isolated scopes
+  -->
+  
+  <!doctype html>
+<html>
+<head>
+    <title>AngularJS-Session15-Assgn3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script>
+  var app = angular.module("app",[]);
+  app.controller("Ctrl1",function($scope){
+    $scope.name = "Captain Cool";
+    $scope.alertName = function(){
+      alert($scope.name);
+    };
+  });
+  app.directive("testDirective", function(){
+    return {
+      restrict: "EA",
+      scope: {personName:"&pName"},
+      template: "<div>Your name is : {{personName()}}</div>",
+      replace:true,
+    };
+  });
+    </script>
+</head>
+<body ng-app="app">
+    <div ng-controller="Ctrl1">
+        <h2>An Example of One Way Data Binding </h2>
+        <h3 ng-click="alertName()">Hi there  {{name}}, click anywhere on this heading to alert your name.</h3>
+        <div test-directive p-name="name"></div>
+    </div>
+</body>
+</html>
